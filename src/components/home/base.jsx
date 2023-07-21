@@ -1,33 +1,34 @@
 import { useRouterModal, useRouterPanel } from "@kokateam/router-vkminiapps";
 
-import { Button, Title } from "@vkontakte/vkui";
-import toast from "react-hot-toast";
+import { Button, Placeholder, Text } from "@vkontakte/vkui";
+import Icon from "./icon";
 
-const Home = () => {
+const Home = ({ user, flash, setFlash, users }) => {
   const { toModal } = useRouterModal();
   const { toPanel } = useRouterPanel();
 
   return (
     <>
-      <Title weight={"3"} className={"mb10 centered"}>
-        Привет, это boilerplate!
-      </Title>
-      <Button stretched onClick={() => toModal("hello")}>
-        Открыть модалку!
-      </Button>
-      <Button
-        stretched
-        onClick={() => toast.success("Да, это тост")}
-        className={"mt5"}
+      <Placeholder
+        icon={<Icon />}
+        header="Немного лирики"
+        className="base-placeholder"
+        action={
+          <Button size="m" onClick={() => toModal("modal")}>
+            Нажми на меня
+          </Button>
+        }
       >
-        Toast!
-      </Button>
-      <Button stretched onClick={() => toModal("fullModal")} className={"mt5"}>
-        Открыть модалку полную!
-      </Button>
-      <Button className={"mt5"} stretched onClick={() => toPanel("home2")}>
-        Открыть панель!
-      </Button>
+        <Text
+          style={{
+            marginBottom: 24,
+            color: "var(--vkui--color_text_secondary)",
+          }}
+        >
+          Прежде чем описание станет хорошим, его необходимо написать. Не правда
+          ли?
+        </Text>
+      </Placeholder>
     </>
   );
 };

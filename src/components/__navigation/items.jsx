@@ -1,16 +1,15 @@
-import { Icon24HomeOutline, Icon24UserCircleOutline } from "@vkontakte/icons";
+import { Icon28NewsfeedLinesOutline } from "@vkontakte/icons";
+import Govno from "../img/vmoji_outline_28.svg?component";
 
 export default [
   {
     id: "home",
-    title: "Главная",
-    description: "Описание раздела",
-    icon: <Icon24HomeOutline />,
+    title: "Placeholder",
+    icon: <Icon28NewsfeedLinesOutline />,
   },
   {
     id: "profile",
     title: "Профиль",
-    description: "Описание раздела",
-    icon: <Icon24UserCircleOutline />,
+    icon: <Govno />,
   },
 ];

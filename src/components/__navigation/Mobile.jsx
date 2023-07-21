@@ -15,7 +15,9 @@ const MobileNavigation = () => {
           selected={view === el.id}
           text={el.title}
         >
-          {el.icon}
+          <span className={view === el.id && "tabbar-icon-active"}>
+            {el.icon}
+          </span>
         </TabbarItem>
       ))}
     </Tabbar>

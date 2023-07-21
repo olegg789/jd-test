@@ -21,7 +21,6 @@ const DesktopNavigation = () => {
             disabled={view === el.id}
             before={el.icon}
             multiline
-            description={el.description}
           >
             {el.title}
           </SimpleCell>

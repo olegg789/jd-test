@@ -1,13 +1,14 @@
 import { ModalRoot, useRouterModal } from "@kokateam/router-vkminiapps";
 
 import { Button } from "@vkontakte/vkui";
-import { Icon56Fire } from "@vkontakte/icons";
+import { Icon56Fire, Icon56Stars3Outline } from "@vkontakte/icons";
 import {
   ModalCardConstructor,
   ModalConstructor,
 } from "/src/components/__global";
 
 import Hello from "./Hello";
+import MyModalCard from "./ModalCard";
 
 const MainStack = () => {
   const { toModal } = useRouterModal();
@@ -21,6 +22,20 @@ const MainStack = () => {
         icon={<Icon56Fire />}
       >
         <Hello />
+      </ModalCardConstructor>
+
+      <ModalCardConstructor
+        close={() => toModal(-1)}
+        title={"Это модальное окно"}
+        id={"modal"}
+        icon={<Icon56Stars3Outline />}
+        actions={
+          <Button size="l" stretched onClick={() => toModal(-1)}>
+            Понятно
+          </Button>
+        }
+      >
+        <MyModalCard />
       </ModalCardConstructor>
 
       <ModalConstructor

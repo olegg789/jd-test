@@ -1,4 +1,5 @@
-@import "@vkontakte/vkui/dist/vkui.css", "variables.scss";
+@import "@vkontakte/vkui/dist/vkui.css", "variables.scss",
+  "@vkontakte/vkui/dist/unstable.css";
 
 body,
 .Header {
@@ -45,4 +46,46 @@ body[scheme="vkcom_dark"],
   .toast {
     margin-top: 30px;
   }
+}
+
+.tabbarIcon {
+  transform: scale(1.5);
+  margin-right: 5px;
+}
+
+.line {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.icon-container {
+  width: 110px;
+  height: 100px;
+  position: relative;
+  margin: 20px;
+}
+
+.box {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.stack {
+  z-index: 9;
+}
+
+.base-placeholder {
+  margin-top: 25%;
+}
+
+.tabbar-icon-active {
+  color: var(--tabbar_active_icon, var(--vkui--color_icon_accent_themed));
+}
+
+.SimpleCell {
+  padding-left: 0px;
+  padding-right: 0px;
 }

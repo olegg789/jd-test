@@ -1,5 +1,5 @@
 {
-  "name": "vkma-boilerplate",
+  "name": "jd_test",
   "private": true,
   "version": "1.0.0",
   "homepage": "./",
@@ -10,11 +10,12 @@
     "odr": "env ODR=1 yarn build",
     "prettier": "npx prettier --write .",
     "tunnel": "vk-tunnel --insecure=1 --http-protocol=http --ws-protocol=wss --host=localhost --port=3000",
-    "deploy": "yarn build && kokateam-deploy",
+    "deploy": "yarn build && vk-miniapps-deploy",
     "vk-hosting": "vk-miniapps-deploy"
   },
   "dependencies": {
-    "@kokateam/router-vkminiapps": "^0.0.2",
+    "@honkhonk/vite-plugin-svgr": "^1.1.0",
+    "@kokateam/router-vkminiapps": "0.1.0",
     "@vkontakte/icons": "^2.31.0",
     "@vkontakte/vk-bridge": "^2.7.2",
     "@vkontakte/vkui": "4.41.0",
