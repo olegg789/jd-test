@@ -42,17 +42,6 @@ body[scheme="vkcom_dark"],
   margin: 5px 10px;
 }
 
-.mobile {
-  .toast {
-    margin-top: 30px;
-  }
-}
-
-.tabbarIcon {
-  transform: scale(1.5);
-  margin-right: 5px;
-}
-
 .line {
   display: flex;
   flex-direction: row;
@@ -88,4 +77,35 @@ body[scheme="vkcom_dark"],
 .SimpleCell {
   padding-left: 0px;
   padding-right: 0px;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 15px 15px 0;
+}
+
+.user-name {
+  margin-top: 10px;
+  margin-bottom: 8px;
+}
+
+.user-city {
+  margin-bottom: 24px;
+  color: var(--vkui--color_text_secondary);
+}
+
+.pb0 {
+  padding-bottom: 0px;
+}
+
+.mr5 {
+  margin-right: 5px;
+}
+
+.ml5 {
+  margin-left: 5px;
 }

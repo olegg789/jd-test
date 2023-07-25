@@ -1,5 +1,5 @@
 import { Icon28NewsfeedLinesOutline } from "@vkontakte/icons";
-import Govno from "../img/vmoji_outline_28.svg?component";
+import Icon from "../../assets/img/vmoji_outline_28.svg?component";
 
 export default [
   {
@@ -10,6 +10,6 @@ export default [
   {
     id: "profile",
     title: "Профиль",
-    icon: <Govno />,
+    icon: <Icon />,
   },
 ];

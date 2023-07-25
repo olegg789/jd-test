@@ -7,7 +7,6 @@ import {
   ModalConstructor,
 } from "/src/components/__global";
 
-import Hello from "./Hello";
 import MyModalCard from "./ModalCard";
 
 const MainStack = () => {
@@ -15,15 +14,6 @@ const MainStack = () => {
 
   return (
     <ModalRoot>
-      <ModalCardConstructor
-        close={() => toModal(-1)}
-        title={"Привет мир!"}
-        id={"hello"}
-        icon={<Icon56Fire />}
-      >
-        <Hello />
-      </ModalCardConstructor>
-
       <ModalCardConstructor
         close={() => toModal(-1)}
         title={"Это модальное окно"}

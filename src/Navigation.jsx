@@ -7,22 +7,10 @@ import { DesktopNavigation, MobileNavigation } from "./components/__navigation";
 import Home from "./components/home/base";
 import Profile from "./components/profile/base";
 import MainStack from "./components/__modals/MainStack";
-import {
-  Icon28LogoVk,
-  Icon28LogoVkColor,
-  Icon28MoonOutline,
-  Icon28SunOutline,
-} from "@vkontakte/icons";
+import { Icon28MoonOutline, Icon28SunOutline } from "@vkontakte/icons";
+import Header from "./components/__global/Header";
 
-const Navigation = ({
-  isDesktop,
-  theme,
-  setTheme,
-  user,
-  flash,
-  setFlash,
-  users,
-}) => {
+const Navigation = ({ isDesktop, theme, setTheme }) => {
   const { popout } = useRouterPopout();
 
   return (
@@ -42,24 +30,7 @@ const Navigation = ({
       >
         <Epic tabbar={!isDesktop ? <MobileNavigation /> : null}>
           <View id="home">
-            <PageConstructor
-              id={"home"}
-              name={
-                <div className="line">
-                  <Icon28LogoVkColor />
-                  <span style={{ fontWeight: 500 }}>ui</span>
-                </div>
-              }
-            >
-              <Home
-                user={user}
-                flash={flash}
-                setFlash={(data) => setFlash(data)}
-                users={users}
-              />
-            </PageConstructor>
-
-            <PageConstructor id={"home2"} name={"Главная 2"}>
+            <PageConstructor id={"home"} name={<Header />}>
               <Home />
             </PageConstructor>
           </View>
@@ -67,24 +38,14 @@ const Navigation = ({
           <View id="profile">
             <PageConstructor
               id={"profile"}
-              name={
-                <div className="line">
-                  <Icon28LogoVkColor />
-                  <span style={{ fontWeight: 500 }}>ui</span>
-                </div>
-              }
+              name={<Header />}
               before="button"
               buttonIcon={
                 theme === "light" ? <Icon28MoonOutline /> : <Icon28SunOutline />
               }
               action={() => setTheme(theme === "light" ? "dark" : "light")}
             >
-              <Profile
-                user={user}
-                flash={flash}
-                setFlash={(data) => setFlash(data)}
-                users={users}
-              />
+              <Profile />
             </PageConstructor>
           </View>
         </Epic>

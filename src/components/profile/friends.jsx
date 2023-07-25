@@ -1,9 +1,9 @@
 import { Group, Header, Cell, InitialsAvatar } from "@vkontakte/vkui";
+import { useRecoilState } from "recoil";
+import users_placeholder from "../../storage/atoms/users";
 
-const Friends = ({ users }) => {
-  function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-  }
+const Friends = ({}) => {
+  const [users] = useRecoilState(users_placeholder);
 
   return (
     <Group
@@ -16,9 +16,10 @@ const Friends = ({ users }) => {
       {users.map((user) => {
         return (
           <Cell
+            disabled
             style={{ paddingLeft: 12, paddingRight: 12 }}
             before={
-              <InitialsAvatar size={56} gradientColor={getRandomInt(7)}>
+              <InitialsAvatar size={56} gradientColor={user.color}>
                 {user.initials}
               </InitialsAvatar>
             }

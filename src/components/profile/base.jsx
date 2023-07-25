@@ -1,109 +1,62 @@
-import { useRouterModal, useRouterPanel } from "@kokateam/router-vkminiapps";
-
-import {
-  Group,
-  SizeType,
-  Title,
-  useAdaptivity,
-  Avatar,
-  Text,
-  Link,
-  Cell,
-  Div,
-  Switch,
-  Header,
-  Tooltip,
-} from "@vkontakte/vkui";
-import toast from "react-hot-toast";
-import {
-  Icon20HomeOutline,
-  Icon20UserOutline,
-  Icon28LightbulbOutline,
-} from "@vkontakte/icons";
+import { useEffect } from "react";
+import { Group, Title, Avatar, Text, Link, Div } from "@vkontakte/vkui";
+import { Icon20HomeOutline, Icon20UserOutline } from "@vkontakte/icons";
 import bridge from "@vkontakte/vk-bridge";
-import { useState } from "react";
+
 import Flash from "./flash";
 import Friends from "./friends";
+import { useRecoilState } from "recoil";
+import user_info from "../../storage/atoms/user";
+import users_placeholder from "../../storage/atoms/users";
+import getRandomElements from "../../modules/getRandomElements";
+import getInitialsFromNameArray from "../../modules/getInitialsFromNameArray";
 
-const Home = ({ user, flash, setFlash, users }) => {
-  const { toModal } = useRouterModal();
-  const { toPanel } = useRouterPanel();
-  const { sizeX } = useAdaptivity();
+const Home = ({}) => {
+  const [users, setUsers] = useRecoilState(users_placeholder);
+  const [user, setUser] = useRecoilState(user_info);
 
-  function getInitialsFromNameArray(peopleArray) {
-    for (let person of peopleArray) {
-      const nameParts = person.name.split(" ");
+  useEffect(() => {
+    bridge.send("VKWebAppGetUserInfo").then((res) => setUser(res));
+  }, []);
 
-      const initials = nameParts.map((namePart) =>
-        namePart.charAt(0).toUpperCase()
-      );
+  useEffect(() => {
+    if (users.length <= 2) {
+      const fetchData = async () => {
+        const data = await fetch("https://jsonplaceholder.typicode.com/users");
+        return data.json();
+      };
 
-      person.initials = initials.join("");
+      fetchData().then((data) => {
+        let res = getRandomElements(data, 4);
+        let initials = getInitialsFromNameArray(res);
+
+        setUsers(initials);
+      });
     }
-    return peopleArray;
-  }
-
-  function getRandomElements(arr, numElements) {
-    if (numElements >= arr.length) {
-      return arr.slice();
-    } else {
-      let randomIndexes = [];
-      while (randomIndexes.length < numElements) {
-        const randomIndex = Math.floor(Math.random() * arr.length);
-        if (!randomIndexes.includes(randomIndex)) {
-          randomIndexes.push(randomIndex);
-        }
-      }
-      return randomIndexes.map((index) => arr[index]);
-    }
-  }
-
-  const styles = {
-    margin: sizeX === SizeType.REGULAR ? "-7px -7px 0 -7px" : 0,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    textAlign: "center",
-    padding: 15,
-    paddingBottom: 0,
-  };
+  }, []);
 
   return (
     <>
       <Group>
-        <Div style={styles}>
+        <Div className={"user-info"}>
           <Avatar size={96} src={user.photo_max_orig} />
-          <Title
-            style={{ marginBottom: 8, marginTop: 20 }}
-            level="2"
-            weight="2"
-          >
+          <Title className="user-name" level="2" weight="2">
             {user.first_name} {user.last_name}
           </Title>
-          <Div className="line" style={{ paddingBottom: 0 }}>
-            <Text
-              style={{
-                marginBottom: 24,
-                color: "var(--vkui--color_text_secondary)",
-              }}
-              className="line"
-            >
-              <Icon20HomeOutline style={{ marginRight: 5 }} /> {user.city.title}
+          <Div className="line pb0">
+            <Text className="line user-city">
+              <Icon20HomeOutline className={"mr5"} /> {user.city.title}
             </Text>
-            <Link
-              href={`https://vk.com/id${user.id}`}
-              style={{ marginLeft: 5 }}
-            >
+            <Link href={`https://vk.com/id${user.id}`} className={"ml5"}>
               <Icon20UserOutline /> Открыть профиль
             </Link>
           </Div>
         </Div>
       </Group>
 
-      <Flash flash={flash} setFlash={(data) => setFlash(data)} />
+      <Flash />
 
-      <Friends users={users} />
+      <Friends />
     </>
   );
 };

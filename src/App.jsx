@@ -14,22 +14,13 @@ import Navigation from "/src/Navigation";
 
 import bridge from "@vkontakte/vk-bridge";
 import main from "/src/storage/atoms/main";
+import flash_info from "./storage/atoms/flash";
 
 const App = withAdaptivity(
   ({ viewWidth }) => {
     const [theme, setTheme] = useState("light");
     const [mainCoil, updateMainCoil] = useRecoilState(main);
-    const [user, setUser] = useState({
-      id: 1,
-      photo_max_orig: "https://pngicon.ru/file/uploads/cat_hungry.png",
-      first_name: "Котик",
-      last_name: "",
-      city: {
-        title: "Санкт-Петербург",
-      },
-    });
-    const [flash, setFlash] = useState({ is_available: false });
-    const [users, setUsers] = useState([]);
+    const [flash, setFlash] = useRecoilState(flash_info);
 
     const platform = usePlatform();
 
@@ -37,34 +28,6 @@ const App = withAdaptivity(
       viewWidth > 3 ||
       new URLSearchParams(window.location.search).get("vk_platform") ===
         "desktop_web";
-
-    function getInitialsFromNameArray(peopleArray) {
-      for (let person of peopleArray) {
-        const nameParts = person.name.split(" ");
-
-        const initials = nameParts.map((namePart) =>
-          namePart.charAt(0).toUpperCase()
-        );
-
-        person.initials = initials.join("");
-      }
-      return peopleArray;
-    }
-
-    function getRandomElements(arr, numElements) {
-      if (numElements >= arr.length) {
-        return arr.slice();
-      } else {
-        let randomIndexes = [];
-        while (randomIndexes.length < numElements) {
-          const randomIndex = Math.floor(Math.random() * arr.length);
-          if (!randomIndexes.includes(randomIndex)) {
-            randomIndexes.push(randomIndex);
-          }
-        }
-        return randomIndexes.map((index) => arr[index]);
-      }
-    }
 
     useEffect(() => {
       bridge.subscribe(({ detail: { type, data } }) => {
@@ -74,25 +37,7 @@ const App = withAdaptivity(
     }, []);
 
     useEffect(() => {
-      bridge.send("VKWebAppGetUserInfo").then((res) => setUser(res));
-    }, []);
-
-    useEffect(() => {
       bridge.send("VKWebAppFlashGetInfo").then((res) => setFlash(res));
-    }, []);
-
-    useEffect(() => {
-      const fetchData = async () => {
-        const data = await fetch("https://jsonplaceholder.typicode.com/users");
-        return data.json();
-      };
-
-      fetchData().then((data) => {
-        let res = getRandomElements(data, 4);
-        let initials = getInitialsFromNameArray(res);
-
-        setUsers(initials);
-      });
     }, []);
 
     useEffect(() => {
@@ -116,13 +61,9 @@ const App = withAdaptivity(
           <AppRoot mode="full" className={isDesktop ? "desktop" : "mobile"}>
             <SnackbarProvider>
               <Navigation
-                user={user}
                 isDesktop={isDesktop}
                 theme={theme}
                 setTheme={(theme) => setTheme(theme)}
-                flash={flash}
-                setFlash={(data) => setFlash(data)}
-                users={users}
               />
             </SnackbarProvider>
           </AppRoot>

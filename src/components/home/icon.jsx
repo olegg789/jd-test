@@ -1,5 +1,5 @@
-import background from "../img/background.svg";
-import front from "../img/front.svg";
+import background from "../../assets/img/background.svg";
+import front from "../../assets/img/front.svg";
 
 const Icon = ({}) => {
   return (

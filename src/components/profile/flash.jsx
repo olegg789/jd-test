@@ -9,20 +9,15 @@ import {
 import { useState } from "react";
 import bridge from "@vkontakte/vk-bridge";
 import { TextTooltip } from "@vkontakte/vkui/dist/unstable";
+import { useRecoilState } from "recoil";
+import flash_info from "../../storage/atoms/flash";
 
-const Flash = ({ flash, setFlash }) => {
+const Flash = ({}) => {
+  const [flash, setFlash] = useRecoilState(flash_info);
+
   async function changeFlashLevel() {
-    if (flash.level === 0) {
-      await bridge.send("VKWebAppFlashSetLevel", { level: 1 });
-      let new_flash = flash;
-      new_flash.level = 1;
-      setFlash(new_flash);
-    } else {
-      await bridge.send("VKWebAppFlashSetLevel", { level: 0 });
-      let new_flash = flash;
-      new_flash.level = 0;
-      setFlash(new_flash);
-    }
+    await bridge.send("VKWebAppFlashSetLevel", { level: Number(!flash.level) });
+    setFlash({ ...flash, level: Number(!flash.level) });
   }
 
   return (
@@ -40,6 +35,7 @@ const Flash = ({ flash, setFlash }) => {
           <Switch
             onClick={() => changeFlashLevel()}
             disabled={!flash.is_available}
+            defaultChecked={flash.level}
           />
         }
       >
