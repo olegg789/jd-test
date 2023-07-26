@@ -9,7 +9,6 @@ import {
   withAdaptivity,
 } from "@vkontakte/vkui";
 
-import { SnackbarProvider } from "/src/components/__global";
 import Navigation from "/src/Navigation";
 
 import bridge from "@vkontakte/vk-bridge";
@@ -59,13 +58,11 @@ const App = withAdaptivity(
       >
         <AppearanceProvider appearance={theme || "light"}>
           <AppRoot mode="full" className={isDesktop ? "desktop" : "mobile"}>
-            <SnackbarProvider>
-              <Navigation
-                isDesktop={isDesktop}
-                theme={theme}
-                setTheme={(theme) => setTheme(theme)}
-              />
-            </SnackbarProvider>
+            <Navigation
+              isDesktop={isDesktop}
+              theme={theme}
+              setTheme={(theme) => setTheme(theme)}
+            />
           </AppRoot>
         </AppearanceProvider>
       </ConfigProvider>

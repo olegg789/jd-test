@@ -19,12 +19,7 @@ const Home = ({ user, flash, setFlash, users }) => {
           </Button>
         }
       >
-        <Text
-          style={{
-            marginBottom: 24,
-            color: "var(--vkui--color_text_secondary)",
-          }}
-        >
+        <Text className={"placeholder-text"}>
           Прежде чем описание станет хорошим, его необходимо написать. Не правда
           ли?
         </Text>

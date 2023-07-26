@@ -7,15 +7,11 @@ import App from "/src/App";
 
 import "/src/assets/css/global.scss";
 
-const app = async () => {
-  render(
-    <RouterRoot>
-      <AdaptivityProvider>
-        <App />
-      </AdaptivityProvider>
-    </RouterRoot>,
-    document.getElementById("root")
-  );
-};
-
-app();
+render(
+  <RouterRoot>
+    <AdaptivityProvider>
+      <App />
+    </AdaptivityProvider>
+  </RouterRoot>,
+  document.getElementById("root")
+);
