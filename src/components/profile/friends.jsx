@@ -1,8 +1,12 @@
-import { Group, Header, Cell, InitialsAvatar } from "@vkontakte/vkui";
+import { Group, Header, Cell, InitialsAvatar, Button } from "@vkontakte/vkui";
 import { useRecoilState } from "recoil";
 import users_placeholder from "../../storage/atoms/users";
+import { Icon28AddOutline } from "@vkontakte/icons";
+import { useRouterPanel } from "@kokateam/router-vkminiapps";
 
 const Friends = ({}) => {
+  const { toPanel } = useRouterPanel();
+
   const [users] = useRecoilState(users_placeholder);
 
   return (
@@ -13,7 +17,7 @@ const Friends = ({}) => {
         </Header>
       }
     >
-      {users.map((user) => {
+      {users.short.map((user) => {
         return (
           <Cell
             disabled
@@ -33,6 +37,17 @@ const Friends = ({}) => {
           </Cell>
         );
       })}
+      {users.all.length > 1 && (
+        <Button
+          mode="tertiary"
+          stretched
+          before={<Icon28AddOutline />}
+          onClick={() => toPanel("friends")}
+          className={"mt5"}
+        >
+          Показать всех друзей
+        </Button>
+      )}
     </Group>
   );
 };

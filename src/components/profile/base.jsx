@@ -20,17 +20,27 @@ const Home = ({}) => {
   }, []);
 
   useEffect(() => {
-    if (users.length <= 2) {
+    if (users.all.length <= 2) {
       const fetchData = async () => {
         const data = await fetch("https://jsonplaceholder.typicode.com/users");
         return data.json();
       };
 
       fetchData().then((data) => {
-        let res = getRandomElements(data, 4);
-        let initials = getInitialsFromNameArray(res);
+        let short = getRandomElements(data, 4);
+        let initials_short = getInitialsFromNameArray(short);
+        console.log(1);
 
-        setUsers(initials);
+        let initials_all = getInitialsFromNameArray(data);
+
+        let new_users = {
+          short: initials_short,
+          all: initials_all,
+        };
+
+        console.log(new_users);
+
+        setUsers(new_users);
       });
     }
   }, []);
@@ -43,14 +53,16 @@ const Home = ({}) => {
           <Title className="user-name" level="2" weight="2">
             {user.first_name} {user.last_name}
           </Title>
-          <Div className="line pb0">
-            <Text className="line user-city">
-              <Icon20HomeOutline className={"mr5"} /> {user.city.title}
-            </Text>
-            <Link href={`https://vk.com/id${user.id}`} className={"ml5"}>
-              <Icon20UserOutline /> Открыть профиль
-            </Link>
-          </Div>
+          {user.id && (
+            <Div className="line pb0">
+              <Text className="line user-city">
+                <Icon20HomeOutline className={"mr5"} /> {user.city.title}
+              </Text>
+              <Link href={`https://vk.com/id${user.id}`} className={"ml5"}>
+                <Icon20UserOutline /> Открыть профиль
+              </Link>
+            </Div>
+          )}
         </Div>
       </Group>
 

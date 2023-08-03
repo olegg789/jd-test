@@ -9,6 +9,7 @@ import Profile from "./components/profile/base";
 import MainStack from "./components/__modals/MainStack";
 import { Icon28MoonOutline, Icon28SunOutline } from "@vkontakte/icons";
 import Header from "./components/__global/Header";
+import FriendsPanel from "./components/profile/friends_panel";
 
 const Navigation = ({ isDesktop, theme, setTheme }) => {
   const { popout } = useRouterPopout();
@@ -46,6 +47,10 @@ const Navigation = ({ isDesktop, theme, setTheme }) => {
               action={() => setTheme(theme === "light" ? "dark" : "light")}
             >
               <Profile />
+            </PageConstructor>
+
+            <PageConstructor id={"friends"} name={"Друзья"} before={"toBack"}>
+              <FriendsPanel />
             </PageConstructor>
           </View>
         </Epic>

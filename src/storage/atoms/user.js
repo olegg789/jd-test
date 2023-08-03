@@ -3,12 +3,12 @@ import { atom } from "recoil";
 const user_info = atom({
   key: "user",
   default: {
-    id: 1,
-    photo_max_orig: "https://pngicon.ru/file/uploads/cat_hungry.png",
-    first_name: "Котик",
+    id: null,
+    photo_max_orig: "https://vk.com/images/camera_200.png",
+    first_name: "Загрузка...",
     last_name: "",
     city: {
-      title: "Санкт-Петербург",
+      title: null,
     },
   },
 });
